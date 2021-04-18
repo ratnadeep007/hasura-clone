@@ -1,21 +1,25 @@
 const knex = require('../db');
 
 const getTables = async (req, res) => {
-    const tables = await knex.select("tablename")
-        .from("pg_catalog.pg_tables")
-        .where("schemaname", "public");
-    tableInfos = []
-    await Promise.all(tables.map(async table => {
-        const tableSchema = await knex.table(table['tablename']).columnInfo();
-        const oid = await getOID(table['tablename']);
-        const constraints = await getPrimaryKeys(oid);
-        let tableInfo = {};
-        tableInfo['tableName'] = table['tablename'];
-        tableInfo['schema'] = tableSchema;
-        tableInfo['constraints'] = constraints;
-        tableInfos.push(tableInfo);
-    }));
-    res.send(tableInfos);
+    try {
+        const tables = await knex.select("tablename")
+            .from("pg_catalog.pg_tables")
+            .where("schemaname", "public");
+        tableInfos = []
+        await Promise.all(tables.map(async table => {
+            const tableSchema = await knex.table(table['tablename']).columnInfo();
+            const oid = await getOID(table['tablename']);
+            const constraints = await getPrimaryKeys(oid);
+            let tableInfo = {};
+            tableInfo['tableName'] = table['tablename'];
+            tableInfo['schema'] = tableSchema;
+            tableInfo['constraints'] = constraints;
+            tableInfos.push(tableInfo);
+        }));
+        res.send(tableInfos);
+    } catch (err) {
+        console.log(err);
+    }
 }
 
 const getOID = async (tablename) => {
