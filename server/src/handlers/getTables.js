@@ -14,6 +14,7 @@ const getTables = async (req, res) => {
             tableInfo['tableName'] = table['tablename'];
             tableInfo['schema'] = tableSchema;
             tableInfo['constraints'] = constraints;
+            tableInfo['recordCount'] = await getRecordCount(table['tablename']);
             tableInfos.push(tableInfo);
         }));
         res.send(tableInfos);
@@ -53,6 +54,15 @@ ORDER BY i.indisprimary DESC, i.indisunique DESC, c2.relname;`;
             }
             return constraints;
         } else return [];
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+const getRecordCount = async (tableName) => {
+    try {
+        const count = await knex(tableName).count('*');
+        return count[0]['count'];
     } catch (err) {
         console.log(err);
     }
