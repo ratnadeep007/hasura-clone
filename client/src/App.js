@@ -1,6 +1,7 @@
 import './App.css';
 
 import TableList from './pages/TableList';
+import CreateTable from "./pages/CreateTable";
 
 import Sidebar from "react-sidebar";
 import {Switch, Route, BrowserRouter as Router} from "react-router-dom";
@@ -19,6 +20,9 @@ function App() {
                 docked={true}
             >
                 <Switch>
+                    <Route path="/createTable">
+                        <CreateTable />
+                    </Route>
                     <Route path="/">
                         <TableList />
                     </Route>

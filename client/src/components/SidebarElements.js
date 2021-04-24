@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 const componentWithRoutes = [
     {
         to: '/',
-        text: 'Table',
+        text: 'Tables',
         icon: 'pi pi-table p-mr-2'
     }
 ]

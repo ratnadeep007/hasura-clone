@@ -4,11 +4,12 @@ const createTable = async (req, res) => {
     const tableName = req.body['tableName'];
     const strings = req.body['strings'];
     const uuid = req.body["uuid"];
-    const integer = req.body["integer"];
+    const integer = req.body["integers"];
     const autoincrement = req.body['autoincrements'];
     const primaryKey = req.body['primaryKey'];
     const foreignKey = req.body['foreignKey'];
     if (await knex.schema.hasTable(tableName)) {
+        res.status(400);
         return res.send({
             msg: `Table ${tableName} already exists`
         })

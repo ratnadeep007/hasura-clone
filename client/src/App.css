@@ -18,3 +18,23 @@ a {
 .pointer {
   cursor: pointer;
 }
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-around {
+  justify-content: space-around;
+}
+
+.justify-evenly {
+  justify-content: space-evenly;
+ }
+
+.justify-center {
+  justify-content: center;
+}
+
+.bg-red {
+  background-color: red;
+}
